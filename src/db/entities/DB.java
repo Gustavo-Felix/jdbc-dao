@@ -1,6 +1,6 @@
 package db.entities;
 
-import section19.jdbc6.db.exceptions.DBException;
+import db.exceptions.DbException;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ public class DB {
                 String url = props.getProperty("dburl");
                 connection = DriverManager.getConnection(url, props);
             } catch (FileNotFoundException | SQLException e) {
-                throw new DBException(e.getMessage());
+                throw new DbException(e.getMessage());
             }
         }
         return connection;
@@ -30,7 +30,7 @@ public class DB {
             try {
                 connection.close();
             } catch (SQLException e) {
-                throw new DBException(e.getMessage());
+                throw new DbException(e.getMessage());
             }
         }
     }
@@ -43,7 +43,7 @@ public class DB {
             return props;
 
         } catch (IOException e) {
-            throw new DBException(e.getMessage());
+            throw new DbException(e.getMessage());
         }
     }
 
@@ -53,7 +53,7 @@ public class DB {
                 statement.close();
             }
         } catch (SQLException e) {
-            throw new DBException(e.getMessage());
+            throw new DbException(e.getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ public class DB {
                 resultSet.close();
             }
         } catch (SQLException e) {
-            throw new DBException(e.getMessage());
+            throw new DbException(e.getMessage());
         }
     }
 }
