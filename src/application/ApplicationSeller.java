@@ -39,6 +39,10 @@ public class ApplicationSeller {
         System.out.println("\n=== TEST 05 - seller DELETE ===");
         sellerDao.deleteById(8);
 
+        System.out.println("\n=== TEST 06 - seller UPDATE ===");
+        Seller seller2 = new Seller(10, "Matheus Atualizado Agora", "matheusAtulizado@gmail.com", LocalDate.parse("2007-12-19"), 5200.00, departmentDao.findById(13));
+        sellerDao.update(seller2);
+
     }
 
 }

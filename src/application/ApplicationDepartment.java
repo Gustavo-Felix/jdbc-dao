@@ -27,6 +27,9 @@ public class ApplicationDepartment {
 
         System.out.println("\n=== TEST 04 - department DELETE ===");
         departmentDao.deleteById(11);
+
+        System.out.println("\n=== TEST 05 - department UPDATE ===");
+        departmentDao.update(new Department(17, "Taskflow Atualizado"));
     }
 
 }

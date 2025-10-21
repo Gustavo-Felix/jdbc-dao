@@ -70,7 +70,40 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
     @Override
     public void update(Department department) {
+        PreparedStatement preparedStatement = null;
 
+        try {
+
+            connection.setAutoCommit(false);
+
+            String sql = "UPDATE department " +
+                    "SET Name = ? " +
+                    "WHERE Id = ?";
+
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, department.getName());
+            preparedStatement.setInt(2, department.getId());
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println(department.getId() + " - " + department.getName() + " Atualizado com sucesso!");
+            } else {
+                System.out.println("No rows affected");
+            }
+
+            connection.commit();
+
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+                throw new DbException("Transaction rolled back! Caused by: " + e.getMessage());
+            } catch (SQLException ex) {
+                throw new DbException("Error trying to rollback! Caused by: " + ex.getMessage());
+            }
+        } finally {
+            DB.closeStatement(preparedStatement);
+        }
     }
 
     @Override
